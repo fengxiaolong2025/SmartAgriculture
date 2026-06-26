@@ -27,7 +27,7 @@ from app.mock.data_generator import data_generator
 from fastapi.exceptions import RequestValidationError
 
 # 前端静态文件目录
-FRONTEND_DIST = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "..", "agri-dashboard", "dist")
+FRONTEND_DIST = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "frontend-src", "dist")
 FRONTEND_DIST = os.path.abspath(FRONTEND_DIST)
 
 

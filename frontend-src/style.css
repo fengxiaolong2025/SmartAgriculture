@@ -1,0 +1,243 @@
+/* ========== CSS 变量 ========== */
+:root {
+  --bg-primary: #0a1a2e;
+  --bg-secondary: #0d2137;
+  --bg-panel: #0f2744;
+  --bg-card: #132d50;
+  --border-color: rgba(0, 212, 255, 0.15);
+  --border-glow: rgba(0, 212, 255, 0.3);
+  --text-primary: #e0f0ff;
+  --text-secondary: #8bb9e0;
+  --text-muted: #5a8ab5;
+  --accent: #00d4ff;
+  --accent-dim: rgba(0, 212, 255, 0.3);
+  --success: #00e676;
+  --warning: #ffab00;
+  --danger: #ff3d4f;
+  --danger-dim: rgba(255, 61, 79, 0.5);
+  --orange: #ff9100;
+  --font-mono: 'Courier New', 'Consolas', 'Monaco', monospace;
+}
+
+/* ========== 全局重置 ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+/* ========== 滚动条美化 ========== */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--accent-dim);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ========== 数字跳动动画 ========== */
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 8px var(--accent-dim); }
+  50% { text-shadow: 0 0 16px var(--accent), 0 0 32px var(--accent-dim); }
+}
+
+@keyframes blink-warning {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(-100%); }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    box-shadow: 0 0 5px var(--danger), 0 0 10px var(--danger-dim);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--danger), 0 0 40px var(--danger), 0 0 60px var(--danger-dim);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.number-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ========== 面板通用样式 ========== */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+  pointer-events: none;
+}
+
+.panel-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--accent);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-color);
+  background: linear-gradient(180deg, rgba(0,212,255,0.05) 0%, transparent 100%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 1px;
+}
+
+.panel-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.panel-body {
+  padding: 12px;
+}
+
+/* ========== 按钮样式 ========== */
+.btn {
+  padding: 6px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent-dim);
+}
+
+.btn-on {
+  background: rgba(0, 230, 118, 0.15);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.btn-off {
+  background: rgba(255, 61, 79, 0.15);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* ========== 开关样式 ========== */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 22px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 22px;
+  transition: all 0.3s;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background: var(--text-muted);
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+input:checked + .toggle-slider {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: var(--accent);
+}
+
+input:checked + .toggle-slider::before {
+  transform: translateX(22px);
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+/* ========== 卡片样式 ========== */
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 12px;
+  text-align: center;
+  flex: 1;
+}
+
+.stat-card .label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.stat-card .value {
+  font-size: 22px;
+  font-weight: bold;
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+
+.stat-card .unit {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-left: 2px;
+}
